@@ -27,19 +27,22 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    const bearer: string[] = authorization.split(' ');
+    // const bearer: string[] = authorization.split(' ');
 
-    if (!bearer || bearer.length < 2) {
-      throw new UnauthorizedException();
-    }
+    // if (!bearer || bearer.length < 2) {
+    //   console.log(authorization);
+    //   throw new UnauthorizedException();
+    // }
 
-    const token: string = bearer[1];
+    // const token: string = bearer[1];
 
     const { status, userId }: ValidateResponse = await this.service.validate(
-      token,
+      authorization,
     );
 
     req.user = userId;
+
+    console.log(status, userId);
 
     if (status !== HttpStatus.OK) {
       throw new UnauthorizedException();
