@@ -19,4 +19,4 @@ import { OddsController } from './odds.controller';
   ],
   controllers: [OddsController],
 })
-export class OrderModule {}
+export class OddsModule {}
