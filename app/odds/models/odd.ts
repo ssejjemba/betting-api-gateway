@@ -1,3 +1,4 @@
+import * as Joi from "joi";
 export class Odd {
   id: number;
   league: string;
@@ -25,3 +26,13 @@ export class Odd {
     this.awayTeamWinOdd = awayTeamWinOdd;
   }
 }
+
+export const oddSchema = Joi.object({
+  league: Joi.string().required(),
+  homeTeam: Joi.string().required(),
+  awayTeam: Joi.string().required(),
+  gameDate: Joi.date().required(),
+  homeTeamWinOdd: Joi.number().required(),
+  drawOdd: Joi.number().required(),
+  awayTeamWinOdd: Joi.number().required(),
+});
