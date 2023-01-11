@@ -1,0 +1,31 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "The gate application service for the soccer betting api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssejjemba/betting-api-gateway.git"
+  },
+  "keywords": [
+    "gateway",
+    "api",
+    "soccer",
+    "odds",
+    "betting",
+    "tests",
+    "node",
+    "typescript",
+    "ports",
+    "adapters"
+  ],
+  "author": "Daniel Ssejjemba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssejjemba/betting-api-gateway/issues"
+  },
+  "homepage": "https://github.com/ssejjemba/betting-api-gateway#readme"
+}
