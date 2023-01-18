@@ -7,8 +7,8 @@
     "test": "jest",
     "lint": "eslint --ext .ts,.js .",
     "proto:install": "npm i git+https://github.com/ssejjemba/betting-proto.git",
-    "proto:auth": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/betting-proto/proto --ts_proto_out=src/proto/users node_modules/betting-proto/proto/auth.proto --ts_proto_opt=fileSuffix=.pb --ts_proto_opt=esModuleInterop=true",
-    "proto:odds": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/betting-proto/proto --ts_proto_out=src/proto/odds node_modules/betting-proto/proto/odds.proto --ts_proto_opt=fileSuffix=.pb --ts_proto_opt=esModuleInterop=true",
+    "proto:auth": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/betting-proto/proto --ts_proto_out=generated node_modules/betting-proto/proto/auth.proto --ts_proto_opt=fileSuffix=.pb --ts_proto_opt=esModuleInterop=true",
+    "proto:odds": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/betting-proto/proto --ts_proto_out=generated node_modules/betting-proto/proto/odds.proto --ts_proto_opt=fileSuffix=.pb --ts_proto_opt=esModuleInterop=true",
     "proto:all": "npm run proto:auth && npm run proto:odds"
   },
   "repository": {
@@ -28,10 +28,8 @@
     "@types/node": "^18.11.18",
     "betting-proto": "github:ssejjemba/betting-proto",
     "express": "^4.18.2",
-    "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
     "ts-node-dev": "^2.0.0",
-    "typeorm": "^0.3.11",
     "typescript": "^4.9.4"
   },
   "devDependencies": {
