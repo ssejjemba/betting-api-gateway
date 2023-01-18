@@ -1,0 +1,19 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway is a server that acts as an intermediary between an application and a set of microservices. The API Gateway is responsible for request routing, composition, and protocol translation, among other things. It typically sits between the client and the microservices, and its main function is to forward client requests to the appropriate microservice and then return the service's response back to the client.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssejjemba/betting-api-gateway.git"
+  },
+  "author": "Daniel Ssejjemba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ssejjemba/betting-api-gateway/issues"
+  },
+  "homepage": "https://github.com/ssejjemba/betting-api-gateway#readme"
+}
