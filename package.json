@@ -5,7 +5,11 @@
   "main": "index.ts",
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .ts,.js ."
+    "lint": "eslint --ext .ts,.js .",
+    "proto:install": "npm i git+https://github.com/ssejjemba/betting-proto.git",
+    "proto:auth": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/betting-proto/proto --ts_proto_out=src/proto/users node_modules/betting-proto/proto/auth.proto --ts_proto_opt=fileSuffix=.pb --ts_proto_opt=esModuleInterop=true",
+    "proto:odds": "protoc --plugin=node_modules/.bin/protoc-gen-ts_proto -I=./node_modules/betting-proto/proto --ts_proto_out=src/proto/odds node_modules/betting-proto/proto/odds.proto --ts_proto_opt=fileSuffix=.pb --ts_proto_opt=esModuleInterop=true",
+    "proto:all": "npm run proto:auth && npm run proto:odds"
   },
   "repository": {
     "type": "git",
@@ -19,8 +23,10 @@
   "homepage": "https://github.com/ssejjemba/betting-api-gateway#readme",
   "dependencies": {
     "@grpc/grpc-js": "^1.8.4",
+    "@grpc/proto-loader": "^0.7.4",
     "@hapi/joi": "^17.1.1",
     "@types/node": "^18.11.18",
+    "betting-proto": "github:ssejjemba/betting-proto",
     "express": "^4.18.2",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
@@ -34,6 +40,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^29.3.1",
-    "prettier": "^2.8.3"
+    "prettier": "^2.8.3",
+    "ts-proto": "^1.138.0"
   }
 }
