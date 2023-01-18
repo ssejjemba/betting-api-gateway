@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { IUsersService } from "./users.port";
-import { User } from "./users.model";
+import { IUsersService } from "../ports/users.port";
+import { User } from "../models/users.model";
 
 @injectable()
 export class UsersAdapter implements IUsersService {

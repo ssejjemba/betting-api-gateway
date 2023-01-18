@@ -1,4 +1,4 @@
-import { User } from "./users.model";
+import { User } from "../models/users.model";
 
 export interface IUsersService {
   getUser(id: string): Promise<User>;

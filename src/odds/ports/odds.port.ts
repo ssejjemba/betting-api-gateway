@@ -1,4 +1,4 @@
-import { Odd } from "./odds.model";
+import { Odd } from "../models/odds.model";
 
 export interface IOddsService {
   getOdds(): Promise<Odd[]>;
