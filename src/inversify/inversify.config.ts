@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { OddsAdapter } from "../odds/adapters/odds.adapter";
+import { OddsAdapter } from "../odds/adapters/grpc/odds.adapter";
 import { IOddsService } from "../odds/ports/odds.port";
 import { UsersAdapter } from "../users/adapters/users.adapter";
 import { IUsersService } from "../users/ports/users.port";

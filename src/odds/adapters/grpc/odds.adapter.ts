@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { IOddsService } from "../ports/odds.port";
-import { Odd } from "../models/odds.model";
+import { IOddsService } from "../../ports/odds.port";
+import { Odd } from "../../models/odds.model";
 
 @injectable()
 export class OddsAdapter implements IOddsService {
