@@ -1,5 +1,6 @@
+import { Application } from "express";
 import { AuthService } from "../../../models/interface";
-import { IAuthRoutes } from "../../../models/server";
+import { AppRoutes } from "../../../models/server";
 import {
   SignInRequest,
   SignInResponse,
@@ -9,19 +10,27 @@ import {
   VerifyTokenResponse,
   SignUpRequest,
 } from "../../../models/user";
+import bodyParser from "body-parser";
 
-export class AuthRoutes implements IAuthRoutes {
-  constructor(public authService: AuthService) {}
+export class AuthRoutes implements AppRoutes {
+  constructor(
+    public authService: AuthService,
+    public application: Application
+  ) {}
 
-  login(req: SignInRequest) {
+  public makeRoutes() {
+    this.application.post("/login", bodyParser.json(), (req, res) => {});
+  }
+
+  private login(req: SignInRequest) {
     return this.authService.login(req);
   }
 
-  register(req: SignUpRequest) {
+  private register(req: SignUpRequest) {
     return this.authService.register(req);
   }
 
-  validate(req: VerifyTokenRequest) {
+  private validate(req: VerifyTokenRequest) {
     return this.authService.validate(req);
   }
 }
