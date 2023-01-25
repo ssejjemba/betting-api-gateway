@@ -9,10 +9,12 @@ import {
   UpdateOddResponse,
 } from "./odds";
 import {
+  Role,
   SignInRequest,
   SignInResponse,
   SignUpRequest,
   SignUpResponse,
+  User,
   VerifyTokenRequest,
   VerifyTokenResponse,
 } from "./user";
@@ -27,6 +29,11 @@ export interface AuthProvider {
   login: (req: SignInRequest) => SignInResponse;
   register: (req: SignUpRequest) => SignUpResponse;
   validate: (req: VerifyTokenRequest) => VerifyTokenResponse;
+}
+
+export interface TokenService {
+  generateToken: (user: User) => string;
+  verifyToken: (token: string) => { email: string; role: Role };
 }
 
 export interface OddsService {
