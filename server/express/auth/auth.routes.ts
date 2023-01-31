@@ -10,27 +10,49 @@ import {
   VerifyTokenResponse,
   SignUpRequest,
 } from "../../../models/user";
-import bodyParser from "body-parser";
+import { Router, Request, Response, NextFunction } from "express";
 
 export class AuthRoutes implements AppRoutes {
-  constructor(
-    public authService: AuthService,
-    public application: Application
-  ) {}
+  private readonly router = Router();
+  constructor(public authService: AuthService) {}
 
   public makeRoutes() {
-    this.application.post("/login", bodyParser.json(), (req, res) => {});
+    this.router.post("/login", this.login.bind(this));
+    this.router.post("/register", this.register.bind(this));
+    this.router.post("/validate", this.validate.bind(this));
   }
 
-  private login(req: SignInRequest) {
-    return this.authService.login(req);
+  private async login(req: Request, res: Response, next: NextFunction) {
+    const request = req.body as SignInRequest;
+    try {
+      const response = await this.authService.login(request);
+      return res.json(response);
+    } catch (err) {
+      next(err);
+    }
   }
 
-  private register(req: SignUpRequest) {
-    return this.authService.register(req);
+  private async register(req: Request, res: Response, next: NextFunction) {
+    const request = req.body as SignUpRequest;
+    try {
+      const response = await this.authService.register(request);
+      return res.json(response);
+    } catch (err) {
+      next(err);
+    }
   }
 
-  private validate(req: VerifyTokenRequest) {
-    return this.authService.validate(req);
+  private async validate(req: Request, res: Response, next: NextFunction) {
+    const request = req.body as VerifyTokenRequest;
+    try {
+      const response = await this.authService.validate(request);
+      return res.json(response);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  public getRouter() {
+    return this.router;
   }
 }
