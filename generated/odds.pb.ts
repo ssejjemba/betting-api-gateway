@@ -57,17 +57,17 @@ export interface Error {
 export interface Odd {
   id: number;
   league: string;
-  homeTeam: string;
-  awayTeam: string;
-  gameDate: string;
-  homeTeamWinOdd: number;
-  drawOdd: number;
-  awayTeamWinOdd: number;
+  home_team: string;
+  away_team: string;
+  game_date: string;
+  home_team_win_odd: number;
+  draw_odd: number;
+  away_team_win_odd: number;
 }
 
 export interface GetOddsRequest {
   league: string;
-  gameDate: string;
+  game_date: string;
 }
 
 export interface GetOddsResponse {
@@ -77,12 +77,12 @@ export interface GetOddsResponse {
 
 export interface CreateOddRequest {
   league: string;
-  homeTeam: string;
-  awayTeam: string;
-  gameDate: string;
-  homeTeamWinOdd: number;
-  drawOdd: number;
-  awayTeamWinOdd: number;
+  home_team: string;
+  away_team: string;
+  game_date: string;
+  home_team_win_odd: number;
+  draw_odd: number;
+  away_team_win_odd: number;
 }
 
 export interface CreateOddResponse {
@@ -92,9 +92,9 @@ export interface CreateOddResponse {
 
 export interface UpdateOddRequest {
   id: number;
-  homeTeamWinOdd: number;
-  drawOdd: number;
-  awayTeamWinOdd: number;
+  home_team_win_odd: number;
+  draw_odd: number;
+  away_team_win_odd: number;
 }
 
 export interface UpdateOddResponse {
@@ -177,12 +177,12 @@ function createBaseOdd(): Odd {
   return {
     id: 0,
     league: "",
-    homeTeam: "",
-    awayTeam: "",
-    gameDate: "",
-    homeTeamWinOdd: 0,
-    drawOdd: 0,
-    awayTeamWinOdd: 0,
+    home_team: "",
+    away_team: "",
+    game_date: "",
+    home_team_win_odd: 0,
+    draw_odd: 0,
+    away_team_win_odd: 0,
   };
 }
 
@@ -194,23 +194,23 @@ export const Odd = {
     if (message.league !== "") {
       writer.uint32(18).string(message.league);
     }
-    if (message.homeTeam !== "") {
-      writer.uint32(26).string(message.homeTeam);
+    if (message.home_team !== "") {
+      writer.uint32(26).string(message.home_team);
     }
-    if (message.awayTeam !== "") {
-      writer.uint32(34).string(message.awayTeam);
+    if (message.away_team !== "") {
+      writer.uint32(34).string(message.away_team);
     }
-    if (message.gameDate !== "") {
-      writer.uint32(42).string(message.gameDate);
+    if (message.game_date !== "") {
+      writer.uint32(42).string(message.game_date);
     }
-    if (message.homeTeamWinOdd !== 0) {
-      writer.uint32(53).float(message.homeTeamWinOdd);
+    if (message.home_team_win_odd !== 0) {
+      writer.uint32(53).float(message.home_team_win_odd);
     }
-    if (message.drawOdd !== 0) {
-      writer.uint32(61).float(message.drawOdd);
+    if (message.draw_odd !== 0) {
+      writer.uint32(61).float(message.draw_odd);
     }
-    if (message.awayTeamWinOdd !== 0) {
-      writer.uint32(69).float(message.awayTeamWinOdd);
+    if (message.away_team_win_odd !== 0) {
+      writer.uint32(69).float(message.away_team_win_odd);
     }
     return writer;
   },
@@ -229,22 +229,22 @@ export const Odd = {
           message.league = reader.string();
           break;
         case 3:
-          message.homeTeam = reader.string();
+          message.home_team = reader.string();
           break;
         case 4:
-          message.awayTeam = reader.string();
+          message.away_team = reader.string();
           break;
         case 5:
-          message.gameDate = reader.string();
+          message.game_date = reader.string();
           break;
         case 6:
-          message.homeTeamWinOdd = reader.float();
+          message.home_team_win_odd = reader.float();
           break;
         case 7:
-          message.drawOdd = reader.float();
+          message.draw_odd = reader.float();
           break;
         case 8:
-          message.awayTeamWinOdd = reader.float();
+          message.away_team_win_odd = reader.float();
           break;
         default:
           reader.skipType(tag & 7);
@@ -258,12 +258,12 @@ export const Odd = {
     return {
       id: isSet(object.id) ? Number(object.id) : 0,
       league: isSet(object.league) ? String(object.league) : "",
-      homeTeam: isSet(object.homeTeam) ? String(object.homeTeam) : "",
-      awayTeam: isSet(object.awayTeam) ? String(object.awayTeam) : "",
-      gameDate: isSet(object.gameDate) ? String(object.gameDate) : "",
-      homeTeamWinOdd: isSet(object.homeTeamWinOdd) ? Number(object.homeTeamWinOdd) : 0,
-      drawOdd: isSet(object.drawOdd) ? Number(object.drawOdd) : 0,
-      awayTeamWinOdd: isSet(object.awayTeamWinOdd) ? Number(object.awayTeamWinOdd) : 0,
+      home_team: isSet(object.home_team) ? String(object.home_team) : "",
+      away_team: isSet(object.away_team) ? String(object.away_team) : "",
+      game_date: isSet(object.game_date) ? String(object.game_date) : "",
+      home_team_win_odd: isSet(object.home_team_win_odd) ? Number(object.home_team_win_odd) : 0,
+      draw_odd: isSet(object.draw_odd) ? Number(object.draw_odd) : 0,
+      away_team_win_odd: isSet(object.away_team_win_odd) ? Number(object.away_team_win_odd) : 0,
     };
   },
 
@@ -271,12 +271,12 @@ export const Odd = {
     const obj: any = {};
     message.id !== undefined && (obj.id = Math.round(message.id));
     message.league !== undefined && (obj.league = message.league);
-    message.homeTeam !== undefined && (obj.homeTeam = message.homeTeam);
-    message.awayTeam !== undefined && (obj.awayTeam = message.awayTeam);
-    message.gameDate !== undefined && (obj.gameDate = message.gameDate);
-    message.homeTeamWinOdd !== undefined && (obj.homeTeamWinOdd = message.homeTeamWinOdd);
-    message.drawOdd !== undefined && (obj.drawOdd = message.drawOdd);
-    message.awayTeamWinOdd !== undefined && (obj.awayTeamWinOdd = message.awayTeamWinOdd);
+    message.home_team !== undefined && (obj.home_team = message.home_team);
+    message.away_team !== undefined && (obj.away_team = message.away_team);
+    message.game_date !== undefined && (obj.game_date = message.game_date);
+    message.home_team_win_odd !== undefined && (obj.home_team_win_odd = message.home_team_win_odd);
+    message.draw_odd !== undefined && (obj.draw_odd = message.draw_odd);
+    message.away_team_win_odd !== undefined && (obj.away_team_win_odd = message.away_team_win_odd);
     return obj;
   },
 
@@ -288,18 +288,18 @@ export const Odd = {
     const message = createBaseOdd();
     message.id = object.id ?? 0;
     message.league = object.league ?? "";
-    message.homeTeam = object.homeTeam ?? "";
-    message.awayTeam = object.awayTeam ?? "";
-    message.gameDate = object.gameDate ?? "";
-    message.homeTeamWinOdd = object.homeTeamWinOdd ?? 0;
-    message.drawOdd = object.drawOdd ?? 0;
-    message.awayTeamWinOdd = object.awayTeamWinOdd ?? 0;
+    message.home_team = object.home_team ?? "";
+    message.away_team = object.away_team ?? "";
+    message.game_date = object.game_date ?? "";
+    message.home_team_win_odd = object.home_team_win_odd ?? 0;
+    message.draw_odd = object.draw_odd ?? 0;
+    message.away_team_win_odd = object.away_team_win_odd ?? 0;
     return message;
   },
 };
 
 function createBaseGetOddsRequest(): GetOddsRequest {
-  return { league: "", gameDate: "" };
+  return { league: "", game_date: "" };
 }
 
 export const GetOddsRequest = {
@@ -307,8 +307,8 @@ export const GetOddsRequest = {
     if (message.league !== "") {
       writer.uint32(10).string(message.league);
     }
-    if (message.gameDate !== "") {
-      writer.uint32(18).string(message.gameDate);
+    if (message.game_date !== "") {
+      writer.uint32(18).string(message.game_date);
     }
     return writer;
   },
@@ -324,7 +324,7 @@ export const GetOddsRequest = {
           message.league = reader.string();
           break;
         case 2:
-          message.gameDate = reader.string();
+          message.game_date = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -337,14 +337,14 @@ export const GetOddsRequest = {
   fromJSON(object: any): GetOddsRequest {
     return {
       league: isSet(object.league) ? String(object.league) : "",
-      gameDate: isSet(object.gameDate) ? String(object.gameDate) : "",
+      game_date: isSet(object.game_date) ? String(object.game_date) : "",
     };
   },
 
   toJSON(message: GetOddsRequest): unknown {
     const obj: any = {};
     message.league !== undefined && (obj.league = message.league);
-    message.gameDate !== undefined && (obj.gameDate = message.gameDate);
+    message.game_date !== undefined && (obj.game_date = message.game_date);
     return obj;
   },
 
@@ -355,7 +355,7 @@ export const GetOddsRequest = {
   fromPartial<I extends Exact<DeepPartial<GetOddsRequest>, I>>(object: I): GetOddsRequest {
     const message = createBaseGetOddsRequest();
     message.league = object.league ?? "";
-    message.gameDate = object.gameDate ?? "";
+    message.game_date = object.game_date ?? "";
     return message;
   },
 };
@@ -427,7 +427,15 @@ export const GetOddsResponse = {
 };
 
 function createBaseCreateOddRequest(): CreateOddRequest {
-  return { league: "", homeTeam: "", awayTeam: "", gameDate: "", homeTeamWinOdd: 0, drawOdd: 0, awayTeamWinOdd: 0 };
+  return {
+    league: "",
+    home_team: "",
+    away_team: "",
+    game_date: "",
+    home_team_win_odd: 0,
+    draw_odd: 0,
+    away_team_win_odd: 0,
+  };
 }
 
 export const CreateOddRequest = {
@@ -435,23 +443,23 @@ export const CreateOddRequest = {
     if (message.league !== "") {
       writer.uint32(10).string(message.league);
     }
-    if (message.homeTeam !== "") {
-      writer.uint32(18).string(message.homeTeam);
+    if (message.home_team !== "") {
+      writer.uint32(18).string(message.home_team);
     }
-    if (message.awayTeam !== "") {
-      writer.uint32(26).string(message.awayTeam);
+    if (message.away_team !== "") {
+      writer.uint32(26).string(message.away_team);
     }
-    if (message.gameDate !== "") {
-      writer.uint32(34).string(message.gameDate);
+    if (message.game_date !== "") {
+      writer.uint32(34).string(message.game_date);
     }
-    if (message.homeTeamWinOdd !== 0) {
-      writer.uint32(45).float(message.homeTeamWinOdd);
+    if (message.home_team_win_odd !== 0) {
+      writer.uint32(45).float(message.home_team_win_odd);
     }
-    if (message.drawOdd !== 0) {
-      writer.uint32(53).float(message.drawOdd);
+    if (message.draw_odd !== 0) {
+      writer.uint32(53).float(message.draw_odd);
     }
-    if (message.awayTeamWinOdd !== 0) {
-      writer.uint32(61).float(message.awayTeamWinOdd);
+    if (message.away_team_win_odd !== 0) {
+      writer.uint32(61).float(message.away_team_win_odd);
     }
     return writer;
   },
@@ -467,22 +475,22 @@ export const CreateOddRequest = {
           message.league = reader.string();
           break;
         case 2:
-          message.homeTeam = reader.string();
+          message.home_team = reader.string();
           break;
         case 3:
-          message.awayTeam = reader.string();
+          message.away_team = reader.string();
           break;
         case 4:
-          message.gameDate = reader.string();
+          message.game_date = reader.string();
           break;
         case 5:
-          message.homeTeamWinOdd = reader.float();
+          message.home_team_win_odd = reader.float();
           break;
         case 6:
-          message.drawOdd = reader.float();
+          message.draw_odd = reader.float();
           break;
         case 7:
-          message.awayTeamWinOdd = reader.float();
+          message.away_team_win_odd = reader.float();
           break;
         default:
           reader.skipType(tag & 7);
@@ -495,24 +503,24 @@ export const CreateOddRequest = {
   fromJSON(object: any): CreateOddRequest {
     return {
       league: isSet(object.league) ? String(object.league) : "",
-      homeTeam: isSet(object.homeTeam) ? String(object.homeTeam) : "",
-      awayTeam: isSet(object.awayTeam) ? String(object.awayTeam) : "",
-      gameDate: isSet(object.gameDate) ? String(object.gameDate) : "",
-      homeTeamWinOdd: isSet(object.homeTeamWinOdd) ? Number(object.homeTeamWinOdd) : 0,
-      drawOdd: isSet(object.drawOdd) ? Number(object.drawOdd) : 0,
-      awayTeamWinOdd: isSet(object.awayTeamWinOdd) ? Number(object.awayTeamWinOdd) : 0,
+      home_team: isSet(object.home_team) ? String(object.home_team) : "",
+      away_team: isSet(object.away_team) ? String(object.away_team) : "",
+      game_date: isSet(object.game_date) ? String(object.game_date) : "",
+      home_team_win_odd: isSet(object.home_team_win_odd) ? Number(object.home_team_win_odd) : 0,
+      draw_odd: isSet(object.draw_odd) ? Number(object.draw_odd) : 0,
+      away_team_win_odd: isSet(object.away_team_win_odd) ? Number(object.away_team_win_odd) : 0,
     };
   },
 
   toJSON(message: CreateOddRequest): unknown {
     const obj: any = {};
     message.league !== undefined && (obj.league = message.league);
-    message.homeTeam !== undefined && (obj.homeTeam = message.homeTeam);
-    message.awayTeam !== undefined && (obj.awayTeam = message.awayTeam);
-    message.gameDate !== undefined && (obj.gameDate = message.gameDate);
-    message.homeTeamWinOdd !== undefined && (obj.homeTeamWinOdd = message.homeTeamWinOdd);
-    message.drawOdd !== undefined && (obj.drawOdd = message.drawOdd);
-    message.awayTeamWinOdd !== undefined && (obj.awayTeamWinOdd = message.awayTeamWinOdd);
+    message.home_team !== undefined && (obj.home_team = message.home_team);
+    message.away_team !== undefined && (obj.away_team = message.away_team);
+    message.game_date !== undefined && (obj.game_date = message.game_date);
+    message.home_team_win_odd !== undefined && (obj.home_team_win_odd = message.home_team_win_odd);
+    message.draw_odd !== undefined && (obj.draw_odd = message.draw_odd);
+    message.away_team_win_odd !== undefined && (obj.away_team_win_odd = message.away_team_win_odd);
     return obj;
   },
 
@@ -523,12 +531,12 @@ export const CreateOddRequest = {
   fromPartial<I extends Exact<DeepPartial<CreateOddRequest>, I>>(object: I): CreateOddRequest {
     const message = createBaseCreateOddRequest();
     message.league = object.league ?? "";
-    message.homeTeam = object.homeTeam ?? "";
-    message.awayTeam = object.awayTeam ?? "";
-    message.gameDate = object.gameDate ?? "";
-    message.homeTeamWinOdd = object.homeTeamWinOdd ?? 0;
-    message.drawOdd = object.drawOdd ?? 0;
-    message.awayTeamWinOdd = object.awayTeamWinOdd ?? 0;
+    message.home_team = object.home_team ?? "";
+    message.away_team = object.away_team ?? "";
+    message.game_date = object.game_date ?? "";
+    message.home_team_win_odd = object.home_team_win_odd ?? 0;
+    message.draw_odd = object.draw_odd ?? 0;
+    message.away_team_win_odd = object.away_team_win_odd ?? 0;
     return message;
   },
 };
@@ -596,7 +604,7 @@ export const CreateOddResponse = {
 };
 
 function createBaseUpdateOddRequest(): UpdateOddRequest {
-  return { id: 0, homeTeamWinOdd: 0, drawOdd: 0, awayTeamWinOdd: 0 };
+  return { id: 0, home_team_win_odd: 0, draw_odd: 0, away_team_win_odd: 0 };
 }
 
 export const UpdateOddRequest = {
@@ -604,14 +612,14 @@ export const UpdateOddRequest = {
     if (message.id !== 0) {
       writer.uint32(8).int64(message.id);
     }
-    if (message.homeTeamWinOdd !== 0) {
-      writer.uint32(21).float(message.homeTeamWinOdd);
+    if (message.home_team_win_odd !== 0) {
+      writer.uint32(21).float(message.home_team_win_odd);
     }
-    if (message.drawOdd !== 0) {
-      writer.uint32(29).float(message.drawOdd);
+    if (message.draw_odd !== 0) {
+      writer.uint32(29).float(message.draw_odd);
     }
-    if (message.awayTeamWinOdd !== 0) {
-      writer.uint32(37).float(message.awayTeamWinOdd);
+    if (message.away_team_win_odd !== 0) {
+      writer.uint32(37).float(message.away_team_win_odd);
     }
     return writer;
   },
@@ -627,13 +635,13 @@ export const UpdateOddRequest = {
           message.id = longToNumber(reader.int64() as Long);
           break;
         case 2:
-          message.homeTeamWinOdd = reader.float();
+          message.home_team_win_odd = reader.float();
           break;
         case 3:
-          message.drawOdd = reader.float();
+          message.draw_odd = reader.float();
           break;
         case 4:
-          message.awayTeamWinOdd = reader.float();
+          message.away_team_win_odd = reader.float();
           break;
         default:
           reader.skipType(tag & 7);
@@ -646,18 +654,18 @@ export const UpdateOddRequest = {
   fromJSON(object: any): UpdateOddRequest {
     return {
       id: isSet(object.id) ? Number(object.id) : 0,
-      homeTeamWinOdd: isSet(object.homeTeamWinOdd) ? Number(object.homeTeamWinOdd) : 0,
-      drawOdd: isSet(object.drawOdd) ? Number(object.drawOdd) : 0,
-      awayTeamWinOdd: isSet(object.awayTeamWinOdd) ? Number(object.awayTeamWinOdd) : 0,
+      home_team_win_odd: isSet(object.home_team_win_odd) ? Number(object.home_team_win_odd) : 0,
+      draw_odd: isSet(object.draw_odd) ? Number(object.draw_odd) : 0,
+      away_team_win_odd: isSet(object.away_team_win_odd) ? Number(object.away_team_win_odd) : 0,
     };
   },
 
   toJSON(message: UpdateOddRequest): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = Math.round(message.id));
-    message.homeTeamWinOdd !== undefined && (obj.homeTeamWinOdd = message.homeTeamWinOdd);
-    message.drawOdd !== undefined && (obj.drawOdd = message.drawOdd);
-    message.awayTeamWinOdd !== undefined && (obj.awayTeamWinOdd = message.awayTeamWinOdd);
+    message.home_team_win_odd !== undefined && (obj.home_team_win_odd = message.home_team_win_odd);
+    message.draw_odd !== undefined && (obj.draw_odd = message.draw_odd);
+    message.away_team_win_odd !== undefined && (obj.away_team_win_odd = message.away_team_win_odd);
     return obj;
   },
 
@@ -668,9 +676,9 @@ export const UpdateOddRequest = {
   fromPartial<I extends Exact<DeepPartial<UpdateOddRequest>, I>>(object: I): UpdateOddRequest {
     const message = createBaseUpdateOddRequest();
     message.id = object.id ?? 0;
-    message.homeTeamWinOdd = object.homeTeamWinOdd ?? 0;
-    message.drawOdd = object.drawOdd ?? 0;
-    message.awayTeamWinOdd = object.awayTeamWinOdd ?? 0;
+    message.home_team_win_odd = object.home_team_win_odd ?? 0;
+    message.draw_odd = object.draw_odd ?? 0;
+    message.away_team_win_odd = object.away_team_win_odd ?? 0;
     return message;
   },
 };
