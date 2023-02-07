@@ -60,6 +60,8 @@ export interface SignUpResponse {
     | undefined;
   /** jwt token */
   token: string;
+  code: number;
+  message: string;
 }
 
 export interface SignInRequest {
@@ -73,6 +75,8 @@ export interface SignInResponse {
     | undefined;
   /** jwt token */
   token: string;
+  code: number;
+  message: string;
 }
 
 export interface AuthenticateRequest {
@@ -81,10 +85,6 @@ export interface AuthenticateRequest {
 
 export interface AuthenticateResponse {
   user: User | undefined;
-  error: Error | undefined;
-}
-
-export interface Error {
   code: number;
   message: string;
 }
@@ -234,7 +234,7 @@ export const SignUpRequest = {
 };
 
 function createBaseSignUpResponse(): SignUpResponse {
-  return { user: undefined, token: "" };
+  return { user: undefined, token: "", code: 0, message: "" };
 }
 
 export const SignUpResponse = {
@@ -244,6 +244,12 @@ export const SignUpResponse = {
     }
     if (message.token !== "") {
       writer.uint32(18).string(message.token);
+    }
+    if (message.code !== 0) {
+      writer.uint32(24).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(34).string(message.message);
     }
     return writer;
   },
@@ -261,6 +267,12 @@ export const SignUpResponse = {
         case 2:
           message.token = reader.string();
           break;
+        case 3:
+          message.code = reader.int32();
+          break;
+        case 4:
+          message.message = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -273,6 +285,8 @@ export const SignUpResponse = {
     return {
       user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
       token: isSet(object.token) ? String(object.token) : "",
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
     };
   },
 
@@ -280,6 +294,8 @@ export const SignUpResponse = {
     const obj: any = {};
     message.user !== undefined && (obj.user = message.user ? User.toJSON(message.user) : undefined);
     message.token !== undefined && (obj.token = message.token);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
@@ -291,6 +307,8 @@ export const SignUpResponse = {
     const message = createBaseSignUpResponse();
     message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
     message.token = object.token ?? "";
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
     return message;
   },
 };
@@ -358,7 +376,7 @@ export const SignInRequest = {
 };
 
 function createBaseSignInResponse(): SignInResponse {
-  return { user: undefined, token: "" };
+  return { user: undefined, token: "", code: 0, message: "" };
 }
 
 export const SignInResponse = {
@@ -368,6 +386,12 @@ export const SignInResponse = {
     }
     if (message.token !== "") {
       writer.uint32(18).string(message.token);
+    }
+    if (message.code !== 0) {
+      writer.uint32(24).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(34).string(message.message);
     }
     return writer;
   },
@@ -385,6 +409,12 @@ export const SignInResponse = {
         case 2:
           message.token = reader.string();
           break;
+        case 3:
+          message.code = reader.int32();
+          break;
+        case 4:
+          message.message = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -397,6 +427,8 @@ export const SignInResponse = {
     return {
       user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
       token: isSet(object.token) ? String(object.token) : "",
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
     };
   },
 
@@ -404,6 +436,8 @@ export const SignInResponse = {
     const obj: any = {};
     message.user !== undefined && (obj.user = message.user ? User.toJSON(message.user) : undefined);
     message.token !== undefined && (obj.token = message.token);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
@@ -415,6 +449,8 @@ export const SignInResponse = {
     const message = createBaseSignInResponse();
     message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
     message.token = object.token ?? "";
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
     return message;
   },
 };
@@ -471,7 +507,7 @@ export const AuthenticateRequest = {
 };
 
 function createBaseAuthenticateResponse(): AuthenticateResponse {
-  return { user: undefined, error: undefined };
+  return { user: undefined, code: 0, message: "" };
 }
 
 export const AuthenticateResponse = {
@@ -479,8 +515,11 @@ export const AuthenticateResponse = {
     if (message.user !== undefined) {
       User.encode(message.user, writer.uint32(10).fork()).ldelim();
     }
-    if (message.error !== undefined) {
-      Error.encode(message.error, writer.uint32(18).fork()).ldelim();
+    if (message.code !== 0) {
+      writer.uint32(16).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(26).string(message.message);
     }
     return writer;
   },
@@ -496,7 +535,10 @@ export const AuthenticateResponse = {
           message.user = User.decode(reader, reader.uint32());
           break;
         case 2:
-          message.error = Error.decode(reader, reader.uint32());
+          message.code = reader.int32();
+          break;
+        case 3:
+          message.message = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -509,14 +551,16 @@ export const AuthenticateResponse = {
   fromJSON(object: any): AuthenticateResponse {
     return {
       user: isSet(object.user) ? User.fromJSON(object.user) : undefined,
-      error: isSet(object.error) ? Error.fromJSON(object.error) : undefined,
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
     };
   },
 
   toJSON(message: AuthenticateResponse): unknown {
     const obj: any = {};
     message.user !== undefined && (obj.user = message.user ? User.toJSON(message.user) : undefined);
-    message.error !== undefined && (obj.error = message.error ? Error.toJSON(message.error) : undefined);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
@@ -527,67 +571,6 @@ export const AuthenticateResponse = {
   fromPartial<I extends Exact<DeepPartial<AuthenticateResponse>, I>>(object: I): AuthenticateResponse {
     const message = createBaseAuthenticateResponse();
     message.user = (object.user !== undefined && object.user !== null) ? User.fromPartial(object.user) : undefined;
-    message.error = (object.error !== undefined && object.error !== null) ? Error.fromPartial(object.error) : undefined;
-    return message;
-  },
-};
-
-function createBaseError(): Error {
-  return { code: 0, message: "" };
-}
-
-export const Error = {
-  encode(message: Error, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.code !== 0) {
-      writer.uint32(8).int32(message.code);
-    }
-    if (message.message !== "") {
-      writer.uint32(18).string(message.message);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): Error {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseError();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.code = reader.int32();
-          break;
-        case 2:
-          message.message = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): Error {
-    return {
-      code: isSet(object.code) ? Number(object.code) : 0,
-      message: isSet(object.message) ? String(object.message) : "",
-    };
-  },
-
-  toJSON(message: Error): unknown {
-    const obj: any = {};
-    message.code !== undefined && (obj.code = Math.round(message.code));
-    message.message !== undefined && (obj.message = message.message);
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<Error>, I>>(base?: I): Error {
-    return Error.fromPartial(base ?? {});
-  },
-
-  fromPartial<I extends Exact<DeepPartial<Error>, I>>(object: I): Error {
-    const message = createBaseError();
     message.code = object.code ?? 0;
     message.message = object.message ?? "";
     return message;

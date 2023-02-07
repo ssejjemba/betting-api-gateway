@@ -4,56 +4,6 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "odds";
 
-export enum ErrorCode {
-  OK = 0,
-  NOT_FOUND = 1,
-  INVALID_REQUEST = 2,
-  INTERNAL_ERROR = 3,
-  UNRECOGNIZED = -1,
-}
-
-export function errorCodeFromJSON(object: any): ErrorCode {
-  switch (object) {
-    case 0:
-    case "OK":
-      return ErrorCode.OK;
-    case 1:
-    case "NOT_FOUND":
-      return ErrorCode.NOT_FOUND;
-    case 2:
-    case "INVALID_REQUEST":
-      return ErrorCode.INVALID_REQUEST;
-    case 3:
-    case "INTERNAL_ERROR":
-      return ErrorCode.INTERNAL_ERROR;
-    case -1:
-    case "UNRECOGNIZED":
-    default:
-      return ErrorCode.UNRECOGNIZED;
-  }
-}
-
-export function errorCodeToJSON(object: ErrorCode): string {
-  switch (object) {
-    case ErrorCode.OK:
-      return "OK";
-    case ErrorCode.NOT_FOUND:
-      return "NOT_FOUND";
-    case ErrorCode.INVALID_REQUEST:
-      return "INVALID_REQUEST";
-    case ErrorCode.INTERNAL_ERROR:
-      return "INTERNAL_ERROR";
-    case ErrorCode.UNRECOGNIZED:
-    default:
-      return "UNRECOGNIZED";
-  }
-}
-
-export interface Error {
-  code: ErrorCode;
-  message: string;
-}
-
 export interface Odd {
   id: number;
   league: string;
@@ -71,7 +21,8 @@ export interface GetOddsRequest {
 }
 
 export interface GetOddsResponse {
-  error: Error | undefined;
+  code: number;
+  message: string;
   odds: Odd[];
 }
 
@@ -86,7 +37,8 @@ export interface CreateOddRequest {
 }
 
 export interface CreateOddResponse {
-  error: Error | undefined;
+  code: number;
+  message: string;
   odd: Odd | undefined;
 }
 
@@ -98,7 +50,8 @@ export interface UpdateOddRequest {
 }
 
 export interface UpdateOddResponse {
-  error: Error | undefined;
+  code: number;
+  message: string;
   odd: Odd | undefined;
 }
 
@@ -107,71 +60,9 @@ export interface DeleteOddRequest {
 }
 
 export interface DeleteOddResponse {
-  error: Error | undefined;
-  success: boolean;
+  code: number;
+  message: string;
 }
-
-function createBaseError(): Error {
-  return { code: 0, message: "" };
-}
-
-export const Error = {
-  encode(message: Error, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.code !== 0) {
-      writer.uint32(8).int32(message.code);
-    }
-    if (message.message !== "") {
-      writer.uint32(18).string(message.message);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): Error {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseError();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.code = reader.int32() as any;
-          break;
-        case 2:
-          message.message = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): Error {
-    return {
-      code: isSet(object.code) ? errorCodeFromJSON(object.code) : 0,
-      message: isSet(object.message) ? String(object.message) : "",
-    };
-  },
-
-  toJSON(message: Error): unknown {
-    const obj: any = {};
-    message.code !== undefined && (obj.code = errorCodeToJSON(message.code));
-    message.message !== undefined && (obj.message = message.message);
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<Error>, I>>(base?: I): Error {
-    return Error.fromPartial(base ?? {});
-  },
-
-  fromPartial<I extends Exact<DeepPartial<Error>, I>>(object: I): Error {
-    const message = createBaseError();
-    message.code = object.code ?? 0;
-    message.message = object.message ?? "";
-    return message;
-  },
-};
 
 function createBaseOdd(): Odd {
   return {
@@ -361,16 +252,19 @@ export const GetOddsRequest = {
 };
 
 function createBaseGetOddsResponse(): GetOddsResponse {
-  return { error: undefined, odds: [] };
+  return { code: 0, message: "", odds: [] };
 }
 
 export const GetOddsResponse = {
   encode(message: GetOddsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.error !== undefined) {
-      Error.encode(message.error, writer.uint32(10).fork()).ldelim();
+    if (message.code !== 0) {
+      writer.uint32(8).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(18).string(message.message);
     }
     for (const v of message.odds) {
-      Odd.encode(v!, writer.uint32(18).fork()).ldelim();
+      Odd.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -383,9 +277,12 @@ export const GetOddsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.error = Error.decode(reader, reader.uint32());
+          message.code = reader.int32();
           break;
         case 2:
+          message.message = reader.string();
+          break;
+        case 3:
           message.odds.push(Odd.decode(reader, reader.uint32()));
           break;
         default:
@@ -398,14 +295,16 @@ export const GetOddsResponse = {
 
   fromJSON(object: any): GetOddsResponse {
     return {
-      error: isSet(object.error) ? Error.fromJSON(object.error) : undefined,
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
       odds: Array.isArray(object?.odds) ? object.odds.map((e: any) => Odd.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: GetOddsResponse): unknown {
     const obj: any = {};
-    message.error !== undefined && (obj.error = message.error ? Error.toJSON(message.error) : undefined);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     if (message.odds) {
       obj.odds = message.odds.map((e) => e ? Odd.toJSON(e) : undefined);
     } else {
@@ -420,7 +319,8 @@ export const GetOddsResponse = {
 
   fromPartial<I extends Exact<DeepPartial<GetOddsResponse>, I>>(object: I): GetOddsResponse {
     const message = createBaseGetOddsResponse();
-    message.error = (object.error !== undefined && object.error !== null) ? Error.fromPartial(object.error) : undefined;
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
     message.odds = object.odds?.map((e) => Odd.fromPartial(e)) || [];
     return message;
   },
@@ -534,16 +434,19 @@ export const CreateOddRequest = {
 };
 
 function createBaseCreateOddResponse(): CreateOddResponse {
-  return { error: undefined, odd: undefined };
+  return { code: 0, message: "", odd: undefined };
 }
 
 export const CreateOddResponse = {
   encode(message: CreateOddResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.error !== undefined) {
-      Error.encode(message.error, writer.uint32(10).fork()).ldelim();
+    if (message.code !== 0) {
+      writer.uint32(8).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(18).string(message.message);
     }
     if (message.odd !== undefined) {
-      Odd.encode(message.odd, writer.uint32(18).fork()).ldelim();
+      Odd.encode(message.odd, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -556,9 +459,12 @@ export const CreateOddResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.error = Error.decode(reader, reader.uint32());
+          message.code = reader.int32();
           break;
         case 2:
+          message.message = reader.string();
+          break;
+        case 3:
           message.odd = Odd.decode(reader, reader.uint32());
           break;
         default:
@@ -571,14 +477,16 @@ export const CreateOddResponse = {
 
   fromJSON(object: any): CreateOddResponse {
     return {
-      error: isSet(object.error) ? Error.fromJSON(object.error) : undefined,
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
       odd: isSet(object.odd) ? Odd.fromJSON(object.odd) : undefined,
     };
   },
 
   toJSON(message: CreateOddResponse): unknown {
     const obj: any = {};
-    message.error !== undefined && (obj.error = message.error ? Error.toJSON(message.error) : undefined);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     message.odd !== undefined && (obj.odd = message.odd ? Odd.toJSON(message.odd) : undefined);
     return obj;
   },
@@ -589,7 +497,8 @@ export const CreateOddResponse = {
 
   fromPartial<I extends Exact<DeepPartial<CreateOddResponse>, I>>(object: I): CreateOddResponse {
     const message = createBaseCreateOddResponse();
-    message.error = (object.error !== undefined && object.error !== null) ? Error.fromPartial(object.error) : undefined;
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
     message.odd = (object.odd !== undefined && object.odd !== null) ? Odd.fromPartial(object.odd) : undefined;
     return message;
   },
@@ -676,16 +585,19 @@ export const UpdateOddRequest = {
 };
 
 function createBaseUpdateOddResponse(): UpdateOddResponse {
-  return { error: undefined, odd: undefined };
+  return { code: 0, message: "", odd: undefined };
 }
 
 export const UpdateOddResponse = {
   encode(message: UpdateOddResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.error !== undefined) {
-      Error.encode(message.error, writer.uint32(10).fork()).ldelim();
+    if (message.code !== 0) {
+      writer.uint32(8).int32(message.code);
+    }
+    if (message.message !== "") {
+      writer.uint32(18).string(message.message);
     }
     if (message.odd !== undefined) {
-      Odd.encode(message.odd, writer.uint32(18).fork()).ldelim();
+      Odd.encode(message.odd, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -698,9 +610,12 @@ export const UpdateOddResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.error = Error.decode(reader, reader.uint32());
+          message.code = reader.int32();
           break;
         case 2:
+          message.message = reader.string();
+          break;
+        case 3:
           message.odd = Odd.decode(reader, reader.uint32());
           break;
         default:
@@ -713,14 +628,16 @@ export const UpdateOddResponse = {
 
   fromJSON(object: any): UpdateOddResponse {
     return {
-      error: isSet(object.error) ? Error.fromJSON(object.error) : undefined,
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
       odd: isSet(object.odd) ? Odd.fromJSON(object.odd) : undefined,
     };
   },
 
   toJSON(message: UpdateOddResponse): unknown {
     const obj: any = {};
-    message.error !== undefined && (obj.error = message.error ? Error.toJSON(message.error) : undefined);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     message.odd !== undefined && (obj.odd = message.odd ? Odd.toJSON(message.odd) : undefined);
     return obj;
   },
@@ -731,7 +648,8 @@ export const UpdateOddResponse = {
 
   fromPartial<I extends Exact<DeepPartial<UpdateOddResponse>, I>>(object: I): UpdateOddResponse {
     const message = createBaseUpdateOddResponse();
-    message.error = (object.error !== undefined && object.error !== null) ? Error.fromPartial(object.error) : undefined;
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
     message.odd = (object.odd !== undefined && object.odd !== null) ? Odd.fromPartial(object.odd) : undefined;
     return message;
   },
@@ -789,16 +707,16 @@ export const DeleteOddRequest = {
 };
 
 function createBaseDeleteOddResponse(): DeleteOddResponse {
-  return { error: undefined, success: false };
+  return { code: 0, message: "" };
 }
 
 export const DeleteOddResponse = {
   encode(message: DeleteOddResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.error !== undefined) {
-      Error.encode(message.error, writer.uint32(10).fork()).ldelim();
+    if (message.code !== 0) {
+      writer.uint32(8).int32(message.code);
     }
-    if (message.success === true) {
-      writer.uint32(16).bool(message.success);
+    if (message.message !== "") {
+      writer.uint32(18).string(message.message);
     }
     return writer;
   },
@@ -811,10 +729,10 @@ export const DeleteOddResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.error = Error.decode(reader, reader.uint32());
+          message.code = reader.int32();
           break;
         case 2:
-          message.success = reader.bool();
+          message.message = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -826,15 +744,15 @@ export const DeleteOddResponse = {
 
   fromJSON(object: any): DeleteOddResponse {
     return {
-      error: isSet(object.error) ? Error.fromJSON(object.error) : undefined,
-      success: isSet(object.success) ? Boolean(object.success) : false,
+      code: isSet(object.code) ? Number(object.code) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
     };
   },
 
   toJSON(message: DeleteOddResponse): unknown {
     const obj: any = {};
-    message.error !== undefined && (obj.error = message.error ? Error.toJSON(message.error) : undefined);
-    message.success !== undefined && (obj.success = message.success);
+    message.code !== undefined && (obj.code = Math.round(message.code));
+    message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
@@ -844,8 +762,8 @@ export const DeleteOddResponse = {
 
   fromPartial<I extends Exact<DeepPartial<DeleteOddResponse>, I>>(object: I): DeleteOddResponse {
     const message = createBaseDeleteOddResponse();
-    message.error = (object.error !== undefined && object.error !== null) ? Error.fromPartial(object.error) : undefined;
-    message.success = object.success ?? false;
+    message.code = object.code ?? 0;
+    message.message = object.message ?? "";
     return message;
   },
 };
