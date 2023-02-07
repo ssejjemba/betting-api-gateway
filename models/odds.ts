@@ -33,7 +33,7 @@ export type GetOddsRequest = {
 export type GetOddsResponse = {
   code: number;
   error: string;
-  odd: Odd[];
+  odds: Odd[];
 };
 
 export type UpdateOddRequest = {

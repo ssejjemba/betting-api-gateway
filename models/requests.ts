@@ -1,16 +1,3 @@
-export enum ErrorCode {
-  OK = 0,
-  NOT_FOUND = 1,
-  INVALID_REQUEST = 2,
-  INTERNAL_ERROR = 3,
-  UNRECOGNIZED = -1,
-}
-
-export interface Error {
-  code: ErrorCode;
-  message: string;
-}
-
 export interface Odd {
   id: number;
   league: string;
@@ -28,7 +15,8 @@ export interface GetOddsRequest {
 }
 
 export interface GetOddsResponse {
-  error: Error | undefined;
+  code: number;
+  message: string;
   odds: Odd[];
 }
 
@@ -43,7 +31,8 @@ export interface CreateOddRequest {
 }
 
 export interface CreateOddResponse {
-  error: Error | undefined;
+  code: number;
+  message: string;
   odd: Odd | undefined;
 }
 
@@ -55,7 +44,8 @@ export interface UpdateOddRequest {
 }
 
 export interface UpdateOddResponse {
-  error: Error | undefined;
+  code: number;
+  message: string;
   odd: Odd | undefined;
 }
 
@@ -64,6 +54,6 @@ export interface DeleteOddRequest {
 }
 
 export interface DeleteOddResponse {
-  error: Error | undefined;
-  success: boolean;
+  code: number;
+  message: string;
 }
