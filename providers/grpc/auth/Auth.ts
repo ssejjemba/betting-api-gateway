@@ -8,7 +8,7 @@ import {
   User as _User,
 } from "../../../generated/auth_pb";
 import { JWTAuthetication } from "../../../middleware/jwt/jwt.middleware";
-import { IAuthProvider } from "../../../models/interface";
+import { IAuthProvider } from "../../models/providers";
 import {
   SignInRequest,
   SignInResponse,
