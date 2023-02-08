@@ -11,7 +11,7 @@ import {
 
 import { Response } from "express";
 
-export interface OddsProvider {
+export interface IOddsProvider {
   create: (req: CreateOddRequest, res: Response) => void;
   read: (req: GetOddsRequest, res: Response) => void;
   update: (req: UpdateOddRequest, res: Response) => void;

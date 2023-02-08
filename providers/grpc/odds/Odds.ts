@@ -19,7 +19,7 @@ import {
   UpdateOddResponse,
   DeleteOddResponse,
 } from "../../../models/requests";
-import { OddsProvider } from "../../models/providers";
+import { IOddsProvider } from "../../models/providers";
 import { Response } from "express";
 import {
   CreateOddResponseDTO,
@@ -27,7 +27,7 @@ import {
   UpdateOddResponseDTO,
 } from "../../../dtos/odds_response";
 
-export default class Odds implements OddsProvider {
+export default class OddsProvider implements IOddsProvider {
   client: OddsServiceClient;
 
   constructor() {
