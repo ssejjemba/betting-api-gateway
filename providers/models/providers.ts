@@ -9,11 +9,11 @@ import {
   DeleteOddResponse,
 } from "../../models/requests";
 
-import { Response } from "express";
+import { Response, Request } from "express";
 
 export interface IOddsProvider {
-  create: (req: CreateOddRequest, res: Response) => void;
-  read: (req: GetOddsRequest, res: Response) => void;
-  update: (req: UpdateOddRequest, res: Response) => void;
-  delete: (req: DeleteOddRequest, res: Response) => void;
+  create: (req: Request<CreateOddRequest>, res: Response) => void;
+  read: (req: Request<GetOddsRequest>, res: Response) => void;
+  update: (req: Request<UpdateOddRequest>, res: Response) => void;
+  delete: (req: Request<DeleteOddRequest>, res: Response) => void;
 }
