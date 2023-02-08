@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { ENV_VARS } from "../../config/config";
-import { TokenService } from "../../models/interface";
+import { ITokenService } from "../../models/interface";
 import { Role, User } from "../../models/user";
 
-export class JWTAuthetication implements TokenService {
+export class JWTAuthetication implements ITokenService {
   generateToken = (user: User): string => {
     const token = jwt.sign(
       { email: user.email, role: user.role },

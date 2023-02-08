@@ -1,5 +1,5 @@
 import { Application } from "express";
-import { AuthService } from "../../../models/interface";
+import { IAuthService } from "../../../models/interface";
 import { AppRoutes } from "../../../models/server";
 import {
   SignInRequest,
@@ -14,7 +14,7 @@ import { Router, Request, Response, NextFunction } from "express";
 
 export class AuthRoutes implements AppRoutes {
   private readonly router = Router();
-  constructor(public authService: AuthService) {}
+  constructor(public authService: IAuthService) {}
 
   public makeRoutes() {
     this.router.post("/login", this.login.bind(this));

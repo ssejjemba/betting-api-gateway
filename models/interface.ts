@@ -19,31 +19,31 @@ import {
   VerifyTokenResponse,
 } from "./user";
 
-export interface AuthService {
+export interface IAuthService {
   login: (req: SignInRequest) => SignInResponse;
   register: (req: SignUpRequest) => SignUpResponse;
   validate: (req: VerifyTokenRequest) => VerifyTokenResponse;
 }
 
-export interface AuthProvider {
+export interface IAuthProvider {
   login: (req: SignInRequest) => SignInResponse;
   register: (req: SignUpRequest) => SignUpResponse;
   validate: (req: VerifyTokenRequest) => VerifyTokenResponse;
 }
 
-export interface TokenService {
+export interface ITokenService {
   generateToken: (user: User) => string;
   verifyToken: (token: string) => { email: string; role: Role };
 }
 
-export interface OddsService {
+export interface IOddsService {
   create: (req: CreateOddRequest) => CreateOddResponse;
   read: (req: GetOddsRequest) => GetOddsResponse;
   update: (req: UpdateOddRequest) => UpdateOddResponse;
   delete: (req: DeleteOddRequest) => DeleteOddResponse;
 }
 
-export interface OddsProvider {
+export interface IOddsProvider {
   create: (req: CreateOddRequest) => CreateOddResponse;
   read: (req: GetOddsRequest) => GetOddsResponse;
   update: (req: UpdateOddRequest) => UpdateOddResponse;
