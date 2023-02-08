@@ -8,7 +8,7 @@ import {
   GetOddsResponse,
   UpdateOddRequest,
   UpdateOddResponse,
-} from "./odds";
+} from "./requests";
 import {
   Role,
   SignInRequest,
@@ -21,9 +21,15 @@ import {
 } from "./user";
 
 export interface IAuthService {
-  login: (req: SignInRequest) => SignInResponse;
-  register: (req: SignUpRequest) => SignUpResponse;
-  validate: (req: VerifyTokenRequest) => VerifyTokenResponse;
+  login: (req: Request<SignInRequest>, res: Response<SignInResponse>) => void;
+  register: (
+    req: Request<SignUpRequest>,
+    res: Response<SignUpResponse>
+  ) => void;
+  validate?: (
+    req: Request<VerifyTokenRequest>,
+    res: Response<VerifyTokenResponse>
+  ) => void;
 }
 
 export interface ITokenService {
@@ -32,8 +38,17 @@ export interface ITokenService {
 }
 
 export interface IOddsService {
-  create: (req: CreateOddRequest) => CreateOddResponse;
-  read: (req: GetOddsRequest) => GetOddsResponse;
-  update: (req: UpdateOddRequest) => UpdateOddResponse;
-  delete: (req: DeleteOddRequest) => DeleteOddResponse;
+  create: (
+    req: Request<CreateOddRequest>,
+    res: Response<CreateOddResponse>
+  ) => void;
+  read: (req: Request<GetOddsRequest>, res: Response<GetOddsResponse>) => void;
+  update: (
+    req: Request<UpdateOddRequest>,
+    res: Response<UpdateOddResponse>
+  ) => void;
+  delete: (
+    req: Request<DeleteOddRequest>,
+    res: Response<DeleteOddResponse>
+  ) => void;
 }
