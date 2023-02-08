@@ -23,7 +23,6 @@ export type SignUpResponse = {
   code: number;
   error: string;
   user: UserResponse | null;
-  token: string;
 };
 
 export type SignInRequest = {

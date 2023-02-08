@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import {
   CreateOddRequest,
   CreateOddResponse,
@@ -26,9 +27,11 @@ export interface IAuthService {
 }
 
 export interface IAuthProvider {
-  login: (req: SignInRequest) => SignInResponse;
-  register: (req: SignUpRequest) => SignUpResponse;
-  validate: (req: VerifyTokenRequest) => VerifyTokenResponse;
+  login: (req: Request<SignInRequest>, res: Response<SignInResponse>) => void;
+  register: (
+    req: Request<SignUpRequest>,
+    res: Response<SignUpResponse>
+  ) => void;
 }
 
 export interface ITokenService {
