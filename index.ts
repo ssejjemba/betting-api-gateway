@@ -1,5 +1,8 @@
-import * as express from "express";
-const app = express();
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+import { IServer } from "./models/server";
+import { ExpressServer } from "./server/express/api";
+
+function startApplication(server: IServer) {
+  server.startServer();
+}
+
+startApplication(new ExpressServer());

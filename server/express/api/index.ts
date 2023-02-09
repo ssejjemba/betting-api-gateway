@@ -8,7 +8,7 @@ import { OddsService } from "../../../services/odds/Odds";
 import { AuthRoutes } from "../auth/auth.routes";
 import { OddRoutes } from "../odds/odds.routes";
 
-export class Server implements IServer {
+export class ExpressServer implements IServer {
   app = express();
 
   configureApp() {
