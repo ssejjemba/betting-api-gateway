@@ -4,6 +4,9 @@
   "description": "API Gateway is a server that acts as an intermediary between an application and a set of microservices. The API Gateway is responsible for request routing, composition, and protocol translation, among other things. It typically sits between the client and the microservices, and its main function is to forward client requests to the appropriate microservice and then return the service's response back to the client.",
   "main": "index.ts",
   "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "jest",
     "lint": "eslint --ext .ts,.js .",
     "proto:install": "npm i git+https://github.com/ssejjemba/betting-proto.git",
@@ -41,10 +44,12 @@
   "devDependencies": {
     "@types/express": "^4.17.15",
     "@types/jsonwebtoken": "^9.0.1",
+    "concurrently": "^7.6.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "ts-proto": "^1.138.0"
   }
