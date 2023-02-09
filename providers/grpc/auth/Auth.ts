@@ -30,8 +30,11 @@ export class AuthProvider implements IAuthProvider {
     );
   }
 
-  register(req: Request<SignUpRequest>, res: Response<SignUpResponse>) {
-    const body: SignUpRequest = req.body;
+  register(
+    req: Request<any, any, SignUpRequest>,
+    res: Response<SignUpResponse>
+  ) {
+    const body = req.body;
     const data = new SR();
 
     const user = new _User();
@@ -69,8 +72,8 @@ export class AuthProvider implements IAuthProvider {
     });
   }
 
-  login(req: Request<SignInRequest>, res: Response<SignInResponse>) {
-    const body: SignInRequest = req.body;
+  login(req: Request<any, any, SignInRequest>, res: Response<SignInResponse>) {
+    const body = req.body;
     const data = new LR();
     data.setEmail(body.email);
     data.setPassword(body.password);

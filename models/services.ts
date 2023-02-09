@@ -21,13 +21,16 @@ import {
 } from "./user";
 
 export interface IAuthService {
-  login: (req: Request<SignInRequest>, res: Response<SignInResponse>) => void;
+  login: (
+    req: Request<any, any, SignInRequest>,
+    res: Response<SignInResponse>
+  ) => void;
   register: (
-    req: Request<SignUpRequest>,
+    req: Request<any, any, SignUpRequest>,
     res: Response<SignUpResponse>
   ) => void;
   validate?: (
-    req: Request<VerifyTokenRequest>,
+    req: Request<any, any, VerifyTokenRequest>,
     res: Response<VerifyTokenResponse>
   ) => void;
 }
@@ -39,16 +42,19 @@ export interface ITokenService {
 
 export interface IOddsService {
   create: (
-    req: Request<CreateOddRequest>,
+    req: Request<any, any, CreateOddRequest>,
     res: Response<CreateOddResponse>
   ) => void;
-  read: (req: Request<GetOddsRequest>, res: Response<GetOddsResponse>) => void;
+  read: (
+    req: Request<any, any, GetOddsRequest>,
+    res: Response<GetOddsResponse>
+  ) => void;
   update: (
-    req: Request<UpdateOddRequest>,
+    req: Request<any, any, UpdateOddRequest>,
     res: Response<UpdateOddResponse>
   ) => void;
   delete: (
-    req: Request<DeleteOddRequest>,
+    req: Request<any, any, DeleteOddRequest>,
     res: Response<DeleteOddResponse>
   ) => void;
 }

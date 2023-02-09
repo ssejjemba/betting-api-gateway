@@ -15,19 +15,28 @@ import { Request, Response } from "express";
 export class OddsService implements IOddsService {
   constructor(public oddsProvider: IOddsProvider) {}
 
-  create(req: Request<CreateOddRequest>, res: Response<CreateOddResponse>) {
+  create(
+    req: Request<any, any, CreateOddRequest>,
+    res: Response<CreateOddResponse>
+  ) {
     this.oddsProvider.create(req, res);
   }
 
-  read(req: Request<GetOddsRequest>, res: Response<GetOddsResponse>) {
+  read(req: Request<any, any, GetOddsRequest>, res: Response<GetOddsResponse>) {
     this.oddsProvider.read(req, res);
   }
 
-  update(req: Request<UpdateOddRequest>, res: Response<UpdateOddResponse>) {
+  update(
+    req: Request<any, any, UpdateOddRequest>,
+    res: Response<UpdateOddResponse>
+  ) {
     this.oddsProvider.update(req, res);
   }
 
-  delete(req: Request<DeleteOddRequest>, res: Response<DeleteOddResponse>) {
+  delete(
+    req: Request<any, any, DeleteOddRequest>,
+    res: Response<DeleteOddResponse>
+  ) {
     this.oddsProvider.delete(req, res);
   }
 }

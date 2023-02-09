@@ -19,16 +19,19 @@ import {
 import { Response, Request } from "express";
 
 export interface IOddsProvider {
-  create: (req: Request<CreateOddRequest>, res: Response) => void;
-  read: (req: Request<GetOddsRequest>, res: Response) => void;
-  update: (req: Request<UpdateOddRequest>, res: Response) => void;
-  delete: (req: Request<DeleteOddRequest>, res: Response) => void;
+  create: (req: Request<any, any, CreateOddRequest>, res: Response) => void;
+  read: (req: Request<any, any, GetOddsRequest>, res: Response) => void;
+  update: (req: Request<any, any, UpdateOddRequest>, res: Response) => void;
+  delete: (req: Request<any, any, DeleteOddRequest>, res: Response) => void;
 }
 
 export interface IAuthProvider {
-  login: (req: Request<SignInRequest>, res: Response<SignInResponse>) => void;
+  login: (
+    req: Request<any, any, SignInRequest>,
+    res: Response<SignInResponse>
+  ) => void;
   register: (
-    req: Request<SignUpRequest>,
+    req: Request<any, any, SignUpRequest>,
     res: Response<SignUpResponse>
   ) => void;
 }

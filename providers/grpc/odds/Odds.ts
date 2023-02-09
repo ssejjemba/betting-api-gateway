@@ -41,7 +41,7 @@ export default class OddsProvider implements IOddsProvider {
   }
 
   async create(
-    req: Request<CreateOddRequest>,
+    req: Request<any, any, CreateOddRequest>,
     res: Response<CreateOddResponse>
   ) {
     const body = req.body;
@@ -75,7 +75,7 @@ export default class OddsProvider implements IOddsProvider {
     });
   }
 
-  read(req: Request<GetOddsRequest>, res: Response<GetOddsResponse>) {
+  read(req: Request<any, any, GetOddsRequest>, res: Response<GetOddsResponse>) {
     const body = req.body;
     const data = new GR();
     data.setGameDate(body.game_date);
@@ -104,7 +104,10 @@ export default class OddsProvider implements IOddsProvider {
     });
   }
 
-  update(req: Request<UpdateOddRequest>, res: Response<UpdateOddResponse>) {
+  update(
+    req: Request<any, any, UpdateOddRequest>,
+    res: Response<UpdateOddResponse>
+  ) {
     const body = req.body;
     const data = new UR();
     data.setAwayTeamWinOdd(body.away_team_win_odd);
@@ -133,7 +136,10 @@ export default class OddsProvider implements IOddsProvider {
     });
   }
 
-  delete(req: Request<DeleteOddRequest>, res: Response<DeleteOddResponse>) {
+  delete(
+    req: Request<any, any, DeleteOddRequest>,
+    res: Response<DeleteOddResponse>
+  ) {
     const body = req.body;
     const data = new DR();
     data.setId(body.id);
