@@ -13,22 +13,22 @@ export class OddRoutes implements AppRoutes {
 
   makeRoutes() {
     this.router.post(
-      "/odds/create",
+      "/create",
       this.middleware.isAutheticated,
       this.create.bind(this)
     );
     this.router.post(
-      "/odds/read",
+      "/read",
       this.middleware.isAutheticated,
       this.read.bind(this)
     );
     this.router.post(
-      "/odds/update",
+      "/update",
       this.middleware.isAdminAuthorized,
       this.update.bind(this)
     );
     this.router.post(
-      "/odds/delete",
+      "/delete",
       this.middleware.isAdminAuthorized,
       this.delete.bind(this)
     );
