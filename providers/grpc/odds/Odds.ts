@@ -1,5 +1,5 @@
 import { ENV_VARS } from "../../../config/config";
-import grpc from "@grpc/grpc-js";
+import { credentials } from "@grpc/grpc-js";
 import { OddsServiceClient } from "../../../generated/odds_grpc_pb";
 
 import {
@@ -36,7 +36,7 @@ export default class OddsProvider implements IOddsProvider {
 
     this.client = new OddsServiceClient(
       `${host}:${port}`,
-      grpc.credentials.createInsecure()
+      credentials.createInsecure()
     );
   }
 

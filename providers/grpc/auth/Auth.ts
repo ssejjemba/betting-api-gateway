@@ -1,4 +1,4 @@
-import grpc from "@grpc/grpc-js";
+import { credentials } from "@grpc/grpc-js";
 import { Request, Response } from "express";
 import { ENV_VARS } from "../../../config/config";
 import { AuthServiceClient } from "../../../generated/auth_grpc_pb";
@@ -26,7 +26,7 @@ export class AuthProvider implements IAuthProvider {
 
     this.client = new AuthServiceClient(
       `${host}:${port}`,
-      grpc.credentials.createInsecure()
+      credentials.createInsecure()
     );
   }
 

@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import { ENV_VARS } from "../../../config/config";
 import { IServer } from "../../../models/server";
 import { AuthProvider } from "../../../providers/grpc/auth/Auth";

@@ -5,7 +5,7 @@
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
-    "strictPropertyInitialization": false
-  },
-  "include": ["src"]
+    "strictPropertyInitialization": false,
+    "allowJs": true
+  }
 }
