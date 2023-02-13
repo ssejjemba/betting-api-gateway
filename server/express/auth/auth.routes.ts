@@ -1,4 +1,3 @@
-import { Application } from "express";
 import { IAuthService } from "../../../models/services";
 import { AppRoutes } from "../../../models/server";
 import { Router, Request, Response, NextFunction } from "express";
