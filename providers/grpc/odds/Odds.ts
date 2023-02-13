@@ -27,7 +27,7 @@ import {
   UpdateOddResponseDTO,
 } from "../../../dtos/odds_response";
 
-export default class OddsProvider implements IOddsProvider {
+export class OddsProvider implements IOddsProvider {
   client: OddsServiceClient;
 
   constructor() {

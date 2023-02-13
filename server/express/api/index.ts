@@ -2,7 +2,7 @@ import express from "express";
 import { ENV_VARS } from "../../../config/config";
 import { IServer } from "../../../models/server";
 import { AuthProvider } from "../../../providers/grpc/auth/Auth";
-import OddsProvider from "../../../providers/grpc/odds/Odds";
+import { OddsProvider } from "../../../providers/grpc/odds/Odds";
 import { AuthService } from "../../../services/auth/Auth";
 import { OddsService } from "../../../services/odds/Odds";
 import { AuthRoutes } from "../auth/auth.routes";
