@@ -6,10 +6,10 @@ import {
   SignUpRequest,
   SignUpResponse,
 } from "../../models/user";
-import { AuthProvider } from "../../providers/grpc/auth/Auth";
+import { IAuthProvider } from "../../providers/models/providers";
 
 export class AuthService implements IAuthService {
-  constructor(public authProvider: AuthProvider) {}
+  constructor(public authProvider: IAuthProvider) {}
 
   login(req: Request<any, any, SignInRequest>, res: Response<SignInResponse>) {
     this.authProvider.login(req, res);
