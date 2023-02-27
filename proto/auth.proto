@@ -1,0 +1,55 @@
+syntax = "proto3";
+package auth;
+
+enum Role {
+  USER = 0;
+  ADMIN = 1;
+  SUPER_ADMIN = 2;
+}
+
+message User {
+  string username = 1;
+  string email = 2;
+  repeated Role roles = 3;
+  string password = 4; //password hash
+}
+
+message SignUpRequest {
+  User user = 1;
+}
+
+message SignUpResponse {
+  User user = 1;
+  string token = 2; // jwt token
+  int32 code = 3;
+  string message = 4;
+}
+
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignInResponse {
+  User user = 1;
+  string token = 2; // jwt token
+  int32 code = 3;
+  string message = 4;
+}
+
+message AuthenticateRequest {
+  string token = 1;
+}
+
+message AuthenticateResponse {
+  User user = 1;
+  int32 code = 2;
+  string message = 3;
+}
+
+
+service AuthService {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
+  rpc SignIn(SignInRequest) returns (SignInResponse);
+  rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse);
+}

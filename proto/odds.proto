@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package odds;
+
+message Odd {
+  int64 id = 1;
+  string league = 2;
+  string home_team = 3;
+  string away_team = 4;
+  string game_date = 5;
+  float home_team_win_odd = 6;
+  float draw_odd = 7;
+  float away_team_win_odd = 8;
+}
+
+message GetOddsRequest {
+  string league = 1;
+  string game_date = 2;
+}
+
+message GetOddsResponse {
+  int32 code = 1;
+  string message = 2;
+  repeated Odd odds = 3;
+}
+
+message CreateOddRequest {
+  string league = 1;
+  string home_team = 2;
+  string away_team = 3;
+  string game_date = 4;
+  float home_team_win_odd = 5;
+  float draw_odd = 6;
+  float away_team_win_odd = 7;
+}
+
+message CreateOddResponse {
+  int32 code = 1;
+  string message = 2;
+  Odd odd = 3;
+}
+
+message UpdateOddRequest {
+  int64 id = 1;
+  float home_team_win_odd = 2;
+  float draw_odd = 3;
+  float away_team_win_odd = 4;
+}
+
+message UpdateOddResponse {
+  int32 code = 1;
+  string message = 2;
+  Odd odd = 3;
+}
+
+message DeleteOddRequest {
+  int64 id = 1;
+}
+
+message DeleteOddResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+service OddsService {
+  rpc GetOdds(GetOddsRequest) returns (GetOddsResponse);
+  rpc CreateOdd(CreateOddRequest) returns (CreateOddResponse);
+  rpc UpdateOdd(UpdateOddRequest) returns (UpdateOddResponse);
+  rpc DeleteOdd(DeleteOddRequest) returns (DeleteOddResponse);
+}
